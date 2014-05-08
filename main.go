@@ -36,6 +36,30 @@ func main() {
 
 	flag.Parse()
 
+	if *httpAddr == "" {
+		*httpAddr = os.Getenv("http_address")
+	}
+
+	if *redirectUrl == "" {
+		*redirectUrl = os.Getenv("redirect_url")
+	}
+
+	if *cookieSecret == "" {
+		*cookieSecret = os.Getenv("cookie_secret")
+	}
+
+	if *cookieDomain == "" {
+		*cookieDomain = os.Getenv("cookie_domain")
+	}
+
+	if *googleAppsDomain == "" {
+		*googleAppsDomain = os.Getenv("google_apps_domain")
+	}
+
+	if *templatePath == "" {
+		*templatePath = os.Getenv("template_path")
+	}
+
 	// Try to use env for secrets if no flag is set
 	if *clientID == "" {
 		*clientID = os.Getenv("google_auth_client_id")

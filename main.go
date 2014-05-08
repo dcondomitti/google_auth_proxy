@@ -96,7 +96,11 @@ func main() {
 	}
 	log.Printf("listening on %s", *httpAddr)
 
-	server := &http.Server{Handler: oauthproxy}
+	cmux := http.NewServeMux()
+	cmux.Handle("/static/", http.FileServer(http.Dir("./")))
+	cmux.Handle("/", oauthproxy)
+
+	server := &http.Server{Handler: cmux}
 	err = server.Serve(listener)
 	if err != nil && !strings.Contains(err.Error(), "use of closed network connection") {
 		log.Printf("ERROR: http.Serve() - %s", err.Error())

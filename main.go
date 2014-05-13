@@ -36,39 +36,41 @@ func main() {
 
 	flag.Parse()
 
-	if *httpAddr == "" {
-		*httpAddr = os.Getenv("http_address")
+	if os.Getenv("HTTP_ADDRESS") != "" {
+		*httpAddr = os.Getenv("HTTP_ADDRESS")
 	}
 
-	if *redirectUrl == "" {
-		*redirectUrl = os.Getenv("redirect_url")
+	if os.Getenv("REDIRECT_URL") != "" {
+		*redirectUrl = os.Getenv("REDIRECT_URL")
 	}
 
-	if *cookieSecret == "" {
-		*cookieSecret = os.Getenv("cookie_secret")
+	if os.Getenv("COOKIE_DOMAIN") != "" {
+		*cookieDomain = os.Getenv("COOKIE_DOMAIN")
 	}
 
-	if *cookieDomain == "" {
-		*cookieDomain = os.Getenv("cookie_domain")
+	if os.Getenv("GOOGLE_APPS_DOMAIN") != "" {
+		*googleAppsDomain = os.Getenv("GOOGLE_APPS_DOMAIN")
 	}
 
-	if *googleAppsDomain == "" {
-		*googleAppsDomain = os.Getenv("google_apps_domain")
+	if os.Getenv("TEMPLATE_PATH") != "" {
+		*templatePath = os.Getenv("TEMPLATE_PATH")
 	}
 
-	if *templatePath == "" {
-		*templatePath = os.Getenv("template_path")
+	if len(upstreams) < 1 {
+		upstreams = strings.Split(os.Getenv("UPSTREAM"), " ")
 	}
 
 	// Try to use env for secrets if no flag is set
-	if *clientID == "" {
-		*clientID = os.Getenv("google_auth_client_id")
+	if os.Getenv("GOOGLE_AUTH_CLIENT_ID") != "" {
+		*clientID = os.Getenv("GOOGLE_AUTH_CLIENT_ID")
 	}
-	if *clientSecret == "" {
-		*clientSecret = os.Getenv("google_auth_secret")
+
+	if os.Getenv("GOOGLE_AUTH_SECRET") != "" {
+		*clientSecret = os.Getenv("GOOGLE_AUTH_SECRET")
 	}
-	if *cookieSecret == "" {
-		*cookieSecret = os.Getenv("google_auth_cookie_secret")
+
+	if os.Getenv("GOOGLE_AUTH_COOKIE_SECRET") != "" {
+		*cookieSecret = os.Getenv("GOOGLE_AUTH_COOKIE_SECRET")
 	}
 
 	if *showVersion {
